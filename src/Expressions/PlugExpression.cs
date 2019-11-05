@@ -2,12 +2,12 @@
 
 namespace Rolang.Expressions
 {
-    public class NumberExpression : IExpression
+    public class PlugExpression : IExpression
     {
         private readonly IValue _value;
         private readonly int _codeLine;
-        
-        public NumberExpression(IValue value, int codeLine)
+
+        public PlugExpression(IValue value, int codeLine)
         {
             _value = value;
             _codeLine = codeLine;
