@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Rolang.Data;
+using Rolang.Exceptions;
 using Rolang.Exceptions.Internal;
 using Rolang.Values;
 
@@ -62,6 +63,14 @@ namespace Rolang
             catch (ReturnException e)
             {
                 return e.ReturnExpression.Compute();
+            }
+            catch (BreakException e)
+            {
+                throw new RuntimeException("'break' outside loop", e.CodeLine);
+            }
+            catch (ContinueException e)
+            {
+                throw new RuntimeException("'continue' outside loop", e.CodeLine);
             }
         }
     }
