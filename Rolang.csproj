@@ -60,8 +60,7 @@
     <Compile Include="src\Expressions\ListValueExpression.cs" />
     <Compile Include="src\Expressions\LogicalExpression.cs" />
     <Compile Include="src\Expressions\NullExpression.cs" />
-    <Compile Include="src\Expressions\NumberExpression.cs" />
-    <Compile Include="src\Expressions\StringExpression.cs" />
+    <Compile Include="src\Expressions\PlugExpression.cs" />
     <Compile Include="src\Expressions\UnaryExpression.cs" />
     <Compile Include="src\Expressions\VariableExpression.cs" />
     <Compile Include="src\Interpreter.cs" />
@@ -84,6 +83,7 @@
     <Compile Include="src\Token.cs" />
     <Compile Include="src\TokenType.cs" />
     <Compile Include="src\Values\BooleanValue.cs" />
+    <Compile Include="src\Values\FunctionValue.cs" />
     <Compile Include="src\Values\IValue.cs" />
     <Compile Include="src\Values\ListValue.cs" />
     <Compile Include="src\Values\NullValue.cs" />
