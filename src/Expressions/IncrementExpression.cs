@@ -75,7 +75,7 @@ namespace Rolang.Expressions
                 throw new RuntimeException("variable " + listValueExpression.GetVariableName() + " is not initialized", _codeLine);
             }
             
-            if (_expression is NumberExpression)
+            if (_expression is PlugExpression)
             {
                 return _postIncrement ? _expression.Compute() : new NumberValue((_expression.Compute().AsNumber(_codeLine) + 1));
             }

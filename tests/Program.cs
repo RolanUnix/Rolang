@@ -9,7 +9,8 @@ namespace Rolang
     {
         public static void Main(string[] args)
         {
-
+            var rolang = new Interpreter();
+            rolang.ExecuteFile("main.ro");
         }
     }
 }

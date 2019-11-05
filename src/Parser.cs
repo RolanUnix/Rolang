@@ -95,7 +95,7 @@ namespace Rolang
                     statements.Add(statement);
                 }
 
-                return new InitFunctionStatement(this, nameFunctionToken.Value, nameArguments, statements);
+                return new InitFunctionStatement(this, nameFunctionToken.Value, nameArguments, statements, nameFunctionToken.Line);
             }
 
             if (currentToken.Type == TokenType.If)
@@ -363,13 +363,13 @@ namespace Rolang
             if (currentToken.Type == TokenType.Break)
             {
                 CheckSemicolon();
-                return new BreakStatement();
+                return new BreakStatement(currentToken.Line);
             }
 
             if (currentToken.Type == TokenType.Continue)
             {
                 CheckSemicolon();
-                return new ContinueStatement();
+                return new ContinueStatement(currentToken.Line);
             }
 
             {
@@ -785,7 +785,7 @@ namespace Rolang
             
             if (currentToken.Type == TokenType.String)
             {
-                return new StringExpression(new StringValue(currentToken.Value), currentToken.Line);
+                return new PlugExpression(new StringValue(currentToken.Value), currentToken.Line);
             }
             
             if (currentToken.Type == TokenType.LParen)
@@ -806,7 +806,7 @@ namespace Rolang
                 while (currentToken.Type != TokenType.RSquare)
                 {
                     _readerPosition--;
-                    indexes.Add(new NumberExpression(new NumberValue(index), currentToken.Line), Expression());
+                    indexes.Add(new PlugExpression(new NumberValue(index), currentToken.Line), Expression());
                     currentToken = ReadToken();
                     if (currentToken.Type != TokenType.Comma && currentToken.Type != TokenType.RSquare) throw new SyntaxException("invalid syntax", currentToken.Line);
                     if (currentToken.Type == TokenType.Comma) _readerPosition++;
@@ -818,7 +818,7 @@ namespace Rolang
             
             if (currentToken.Type == TokenType.Number)
             {
-                return new NumberExpression(new NumberValue(currentToken.Value, currentToken.Line), currentToken.Line);
+                return new PlugExpression(new NumberValue(currentToken.Value, currentToken.Line), currentToken.Line);
             }
             
             if (currentToken.Type == TokenType.Word)
@@ -850,7 +850,24 @@ namespace Rolang
                     
                     return new DecrementExpression(this, new VariableExpression(this, currentToken.Value, token.Line), true, token.Line);   
                 }
-                
+
+                if (token.Type == TokenType.LParen)
+                {
+                    token = ReadToken();
+                    var arguments = new List<IExpression>();
+
+                    while (token.Type != TokenType.RParen)
+                    {
+                        if (token.Type != TokenType.Word) throw new SyntaxException("invalid syntax", currentToken.Line);
+                        arguments.Add(Expression());
+                        token = ReadToken();
+                        if (token.Type != TokenType.Comma && token.Type != TokenType.RParen) throw new SyntaxException("invalid syntax", currentToken.Line);
+                        if (token.Type == TokenType.Comma) _readerPosition++;
+                    }
+
+                    return new CallFunctionExpression(this, currentToken.Value, arguments, currentToken.Line);
+                }
+
                 _readerPosition--;
                 return new VariableExpression(this, currentToken.Value, currentToken.Line);   
             }

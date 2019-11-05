@@ -61,11 +61,6 @@ namespace Rolang.Expressions
                 throw new RuntimeException("variable " + ((VariableExpression)_list).GetVariableName() + " is not initialized", _codeLine);
             }
 
-            if (_list is StringExpression)
-            {
-                return _list.Compute();
-            }
-            
             return _list.Compute();
         }
 

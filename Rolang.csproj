@@ -53,6 +53,7 @@
     <Compile Include="src\Exceptions\SyntaxException.cs" />
     <Compile Include="src\Expressions\BinaryExpression.cs" />
     <Compile Include="src\Expressions\BooleanExpression.cs" />
+    <Compile Include="src\Expressions\CallFunctionExpression.cs" />
     <Compile Include="src\Expressions\DecrementExpression.cs" />
     <Compile Include="src\Expressions\IExpression.cs" />
     <Compile Include="src\Expressions\IncrementExpression.cs" />
