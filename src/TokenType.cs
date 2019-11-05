@@ -43,6 +43,7 @@
         Continue,
         Loop,
         For,
+        Function,
 
         EndStream
     }

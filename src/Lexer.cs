@@ -201,6 +201,8 @@ namespace Rolang
                     return new Token(TokenType.Loop, null, _codeLine);
                 case "for":
                     return new Token(TokenType.For, null, _codeLine);
+                case "fun":
+                    return new Token(TokenType.Function, null, _codeLine);
             }
             
             return new Token(TokenType.Word, word, _codeLine);

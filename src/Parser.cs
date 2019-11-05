@@ -51,7 +51,53 @@ namespace Rolang
         private IStatement Statement()
         {
             var currentToken = ReadToken();
-            
+
+            if (currentToken.Type == TokenType.Function)
+            {
+                var nameFunctionToken = ReadToken();
+                if (nameFunctionToken.Type != TokenType.Word) throw new SyntaxException("invalid syntax", currentToken.Line);
+
+                currentToken = ReadToken();
+                if (currentToken.Type != TokenType.LParen) throw new SyntaxException("invalid syntax", currentToken.Line);
+
+                currentToken = ReadToken();
+                var nameArguments = new List<string>();
+
+                while (currentToken.Type != TokenType.RParen)
+                {
+                    if (currentToken.Type != TokenType.Word) throw new SyntaxException("invalid syntax", currentToken.Line);
+                    
+                    if (nameArguments.Contains(currentToken.Value)) throw new SyntaxException("duplicate argument '" + currentToken.Value + "' in function definition", currentToken.Line);
+                    nameArguments.Add(currentToken.Value);
+                    
+                    currentToken = ReadToken();
+                }
+
+                var statements = new List<IStatement>();
+
+                var statement = Statement();
+
+                if (statement is StartBlockStatement)
+                {
+                    do
+                    {
+                        statements.Add(statement);
+                        statement = Statement();
+
+                        if (!(statement is EndBlockStatement)) continue;
+
+                        statements.Add(statement);
+                        break;
+                    } while (true);
+                }
+                else
+                {
+                    statements.Add(statement);
+                }
+
+                return new InitFunctionStatement(this, nameFunctionToken.Value, nameArguments, statements);
+            }
+
             if (currentToken.Type == TokenType.If)
             {
                 var conditionBlocks = new Dictionary<IExpression, List<IStatement>>();

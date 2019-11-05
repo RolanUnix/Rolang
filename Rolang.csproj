@@ -74,6 +74,7 @@
     <Compile Include="src\Statements\EndBlockStatement.cs" />
     <Compile Include="src\Statements\EqualStatement.cs" />
     <Compile Include="src\Statements\ForStatement.cs" />
+    <Compile Include="src\Statements\InitFunctionStatement.cs" />
     <Compile Include="src\Statements\InitVariableStatement.cs" />
     <Compile Include="src\Statements\IStatement.cs" />
     <Compile Include="src\Statements\PrintStatement.cs" />
