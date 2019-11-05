@@ -30,8 +30,10 @@ namespace Rolang.Expressions
                 {
                     var value = block.Space.Variables.First(variable => variable.Name == _name).Value;
 
-                    if (value is FunctionValue function)
+                    if (value is FunctionValue)
                     {
+                        var function = (FunctionValue) value;
+
                         var argumentValues = new List<IValue>();
 
                         foreach (var argument in _arguments)
