@@ -69,8 +69,10 @@ namespace Rolang
                     
                     if (nameArguments.Contains(currentToken.Value)) throw new SyntaxException("duplicate argument '" + currentToken.Value + "' in function definition", currentToken.Line);
                     nameArguments.Add(currentToken.Value);
-                    
+
                     currentToken = ReadToken();
+                    if (currentToken.Type != TokenType.Comma && currentToken.Type != TokenType.RParen) throw new SyntaxException("invalid syntax", currentToken.Line);
+                    if (currentToken.Type == TokenType.Comma) currentToken = ReadToken();
                 }
 
                 var statements = new List<IStatement>();
@@ -616,13 +618,13 @@ namespace Rolang
 
                 if (currentToken.Type == TokenType.Plus || currentToken.Type == TokenType.Minus)
                 {
-                    currentToken = ReadToken();
+                    var token = ReadToken();
 
-                    if (currentToken.Type != TokenType.Equal)
+                    if (token.Type != TokenType.Equal)
                     {
                         _readerPosition--;
                         expression = new BinaryExpression(currentToken.Type, expression, MultiplicativeExpression(), currentToken.Line);
-                        continue;   
+                        continue;
                     }
 
                     _readerPosition--;
@@ -666,9 +668,9 @@ namespace Rolang
                 
                 if (currentToken.Type == TokenType.Star || currentToken.Type == TokenType.Slash || currentToken.Type == TokenType.Percent)
                 {
-                    currentToken = ReadToken();
+                    var token = ReadToken();
 
-                    if (currentToken.Type != TokenType.Equal)
+                    if (token.Type != TokenType.Equal)
                     {
                         _readerPosition--;
                         expression = new BinaryExpression(currentToken.Type, expression, CrementExpression(), currentToken.Line);
@@ -858,7 +860,7 @@ namespace Rolang
 
                     while (token.Type != TokenType.RParen)
                     {
-                        if (token.Type != TokenType.Word) throw new SyntaxException("invalid syntax", currentToken.Line);
+                        _readerPosition--;
                         arguments.Add(Expression());
                         token = ReadToken();
                         if (token.Type != TokenType.Comma && token.Type != TokenType.RParen) throw new SyntaxException("invalid syntax", currentToken.Line);
