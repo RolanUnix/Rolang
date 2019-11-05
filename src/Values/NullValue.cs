@@ -6,17 +6,17 @@ namespace Rolang.Values
     {
         public string AsString(int codeLine)
         {
-            throw new RuntimeException("null cannot be represented as a string", codeLine);
+            throw new RuntimeException(GetValueType() + " cannot be represented as a string", codeLine);
         }
 
         public double AsNumber(int codeLine)
         {
-            throw new RuntimeException("null cannot be represented as a number", codeLine);
+            throw new RuntimeException(GetValueType() + " cannot be represented as a number", codeLine);
         }
 
         public bool AsBoolean(int codeLine)
         {
-            throw new RuntimeException("null cannot be represented as a boolean", codeLine);
+            throw new RuntimeException(GetValueType() + " cannot be represented as a boolean", codeLine);
         }
 
         public override string ToString()
