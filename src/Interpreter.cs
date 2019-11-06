@@ -7,6 +7,8 @@ using System.Text;
 using Rolang.Data;
 using Rolang.Exceptions;
 using Rolang.Exceptions.Internal;
+using Rolang.Functions;
+using Rolang.Statements;
 using Rolang.Values;
 
 namespace Rolang
@@ -51,7 +53,10 @@ namespace Rolang
         {
             try
             {
-                var statements = new Parser(_block, new Lexer(code).Tokenize()).Parse();
+                var parser = new Parser(_block, new Lexer(code).Tokenize());
+                var statements = parser.Parse();
+
+                InitInternalFunction(parser);
 
                 foreach (var statement in statements)
                 {
@@ -72,6 +77,17 @@ namespace Rolang
             {
                 throw new RuntimeException("'continue' outside loop", e.CodeLine);
             }
+        }
+
+        private void InitInternalFunction(Parser parser)
+        {
+            this["print"] = new FunctionValue(new List<string>()
+            {
+                "$1"
+            }, new List<IStatement>()
+            {
+                new PrintFunction(parser)
+            });
         }
     }
 }

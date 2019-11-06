@@ -91,7 +91,7 @@ namespace Rolang.Values
 
         public override string ToString()
         {
-            return "\"" + _string + "\"";
+            return _string;
         }
     }
 }

@@ -338,13 +338,6 @@ namespace Rolang
                 CheckSemicolon();
                 return statement;
             }
-            
-            if (currentToken.Type == TokenType.Print)
-            {
-                var statement = new PrintStatement(Expression());
-                CheckSemicolon();
-                return statement;
-            }
 
             if (currentToken.Type == TokenType.Return)
             {

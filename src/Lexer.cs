@@ -185,8 +185,6 @@ namespace Rolang
                     return new Token(TokenType.InitVariable, null, _codeLine);
                 case "return":
                     return new Token(TokenType.Return, null, _codeLine);
-                case "print":
-                    return new Token(TokenType.Print, null, _codeLine);
                 case "if":
                     return new Token(TokenType.If, null, _codeLine);
                 case "else":

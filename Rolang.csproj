@@ -64,6 +64,7 @@
     <Compile Include="src\Expressions\PlugExpression.cs" />
     <Compile Include="src\Expressions\UnaryExpression.cs" />
     <Compile Include="src\Expressions\VariableExpression.cs" />
+    <Compile Include="src\Functions\PrintFunction.cs" />
     <Compile Include="src\Interpreter.cs" />
     <Compile Include="src\Lexer.cs" />
     <Compile Include="src\Parser.cs" />
@@ -77,7 +78,6 @@
     <Compile Include="src\Statements\InitFunctionStatement.cs" />
     <Compile Include="src\Statements\InitVariableStatement.cs" />
     <Compile Include="src\Statements\IStatement.cs" />
-    <Compile Include="src\Statements\PrintStatement.cs" />
     <Compile Include="src\Statements\ReturnStatement.cs" />
     <Compile Include="src\Statements\StartBlockStatement.cs" />
     <Compile Include="src\Statements\WhileStatement.cs" />
